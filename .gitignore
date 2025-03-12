@@ -1,0 +1,10 @@
+DS_Store
+
+history
+diary
+
+tree-sitter/
+auto-save-list/
+elpa/
+eshell/
+transient/
