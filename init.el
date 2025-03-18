@@ -4,13 +4,14 @@
 (tool-bar-mode -1)
 (global-visual-line-mode -1)
 (global-display-line-numbers-mode -1)
-;; disable scroll bar mode
 (scroll-bar-mode -1)
+
 (setq inhibit-startup-screen t)
 (setq ring-bell-function 'ignore)
 (setq mac-command-modifier 'meta)
 (setq select-enable-primary nil)
 (setq select-enable-clipboard t)
+
 ;; Uncommenting makes line numbers relative
 ;;(setq display-line-numbers-type 'relative)
 
@@ -59,6 +60,7 @@
   ;;Optionally enable cycling for `vertico-next' and `vertico-previous'.
   (setq vertico-cycle t)
  )
+
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
   :ensure t
@@ -81,11 +83,9 @@
 ;;AUCTEX
 (use-package tex
   :ensure auctex)
-
 (setq org-latex-create-formula-image-program 'dvisvgm)
 
-
-;; Markdown
+;; Markdown-mode
 (use-package markdown-mode
   :ensure t)
 
@@ -95,7 +95,6 @@
    :config
    (setq magit-push-always-verify nil)
    (setq git-commit-summary-max-length 50))
-
 
 ;;Git Symbols with Git Gutter		    
 (use-package git-gutter			       
@@ -111,13 +110,13 @@
   (set-face-foreground 'git-gutter:modified "Gold") 
   (set-face-foreground 'git-gutter:deleted "Red"))
 
-
 ;; Engraved Faces
+;; Themes for exported latex code blocks
 (use-package engrave-faces
   :ensure t)
-
 (setq org-latex-src-block-backend 'engraved)
 (setq org-latex-engraved-theme 'doom-one-light)  ;; Optional
+
 
 ;;---CITATIONS------------------------------------->
 
@@ -164,13 +163,15 @@
 (setq deft-use-filename-as-title t)
 (setq deft-directory "~/Desktop/PhilosophyNotes/Notes/")
 
+;; Python
 ;; Python formatting with python-black
 (use-package python-black
   :ensure t
   :demand t
   :after python)
 
-;; rust mode
+;; Rust
+;; Rust mode
 (use-package rust-mode
   :ensure t)
 
@@ -202,8 +203,6 @@
  'treesit-language-source-alist
      '(rust "https://github.com/tree-sitter/tree-sitter-rust"))
 
-;;(global-tree-sitter-mode t)
-
 ;; Hooks, Baby---------------------------------------->
 (defun deftyness()
   (display-line-numbers-mode -1))
@@ -216,6 +215,8 @@
   (display-line-numbers-mode -1)
   (visual-line-mode 1)
   (show-paren-mode 1))
+
+;; Additional Org Config -------------------------------> 
 
 (defun org-stuff()
   "Change org buffers."
@@ -236,12 +237,14 @@
 (setq org-directory "~/Desktop/PhilosophyNotes/Notes")
 (setq org-agenda-files '("~/Desktop/PhilosophyNotes/Notes/Agenda.org"))
 
-
 (setq org-capture-templates
       `(("i" "Inbox" entry (file "Agenda.org")
 	 ,(concat "* TODO %?\n"
 		  "/Entered on/ %U"))))
 (setq org-agenda-hide-tags-regexp ".")
+
+;;org latex fragments size up
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 (defun programming-changes()
   (display-line-numbers-mode)
@@ -302,10 +305,6 @@
       kept-old-versions 1
       version-control t)
 
-
-;;org latex fragments size up
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -329,7 +328,7 @@
 (require 'ocp-indent)
 
 ;; Theme
-(load-theme 'nano t)
+(load-theme 'nano-dark t)
 
 ;;Uncomment for transparent Emacs Gui
 ;;(dolist (frame (frame-list))
