@@ -29,6 +29,10 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 
+;; THEMES
+(use-package nano-theme
+  :ensure t)
+
 ;;ef-themes
 (use-package ef-themes
   :ensure t)
@@ -227,11 +231,17 @@
 (setq org-agenda-custom-commands
       '(("p" "List Every Task"
          ((agenda "")
-          (tags-todo "philosophy")
-	  (tags-todo "math")
-	  (tags-todo "programming")))))
+	  (tags-todo "inbox")))))
 
+(setq org-directory "~/Desktop/PhilosophyNotes/Notes")
 (setq org-agenda-files '("~/Desktop/PhilosophyNotes/Notes/Agenda.org"))
+
+
+(setq org-capture-templates
+      `(("i" "Inbox" entry (file "Agenda.org")
+	 ,(concat "* TODO %?\n"
+		  "/Entered on/ %U"))))
+(setq org-agenda-hide-tags-regexp ".")
 
 (defun programming-changes()
   (display-line-numbers-mode)
@@ -268,7 +278,7 @@
 ;; Custom Keybindings ;;
 (keymap-global-set "C-c e" 'org-latex-export-to-pdf)
 (keymap-global-set "C-c a" 'org-agenda)
-
+(define-key global-map (kbd "C-c c") 'org-capture)
 ;; Eldoc
 (setq eldoc-idle-delay 0.2)
 
@@ -314,15 +324,12 @@
  ;; If there is more than one, they won't work right.
  )
 
-(doom-modeline-mode 1)
-
 ;; Ocaml
 (add-to-list 'load-path "/Users/markarakelian/.opam/default/share/emacs/site-lisp")
 (require 'ocp-indent)
 
 ;; Theme
-;; For Timu-Rouge theme: (customize-set-variable 'timu-rouge-mode-line-border t)
-(load-theme 'ef-frost t)
+(load-theme 'nano t)
 
 ;;Uncomment for transparent Emacs Gui
 ;;(dolist (frame (frame-list))
