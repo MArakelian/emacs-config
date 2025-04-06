@@ -15,15 +15,21 @@
 ;; Uncommenting makes line numbers relative
 ;;(setq display-line-numbers-type 'relative)
 
-;;-------ORG CONFIG--------------------------->
+;; Speed Up On MACOS
+;; Disables double buffering
+(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+
+;;------DEFAULT ORG CONFIG--------------------------->
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 (setq org-startup-indented t)
 (setq org-startup-folded t)
 (setq org-pretty-entities t)
 
+
 ;; FONTS
-(set-frame-font "Monaspace Neon Var" nil t)
+;;(set-frame-font "" nil t)
+(set-face-attribute 'fixed-pitch nil :family "Monaspace Neon Var" :height 1.0) ; or whatever font family
 
 ;;Set up Use-Package --------------------------> 
 (require 'package)
@@ -32,6 +38,9 @@
 
 ;; THEMES
 (use-package nano-theme
+  :ensure t)
+
+(use-package autothemer
   :ensure t)
 
 ;;ef-themes
@@ -227,29 +236,58 @@
 
 (defun org-agenda-changes()
   "Change Org Agenda"
-  (display-line-numbers-mode -1))
+  (display-line-numbers-mode -1)
+  (setq org-agenda-include-diary t)
+  (setq org-agenda-hide-tags-regexp "."))
 
 (setq org-agenda-custom-commands
       '(("p" "List Every Task"
          ((agenda "")
-	  (tags-todo "inbox")))))
+          (tags-todo "inbox|philosophy")))
+        ))
+
+(add-hook 'org-agenda-cleanup-fancy-diary-hook
+          (lambda ()
+            (goto-char (point-min))
+            (save-excursion
+              (while (re-search-forward "^[a-z]" nil t)
+                (goto-char (match-beginning 0))
+                (insert "0:00-24:00 ")))
+            (while (re-search-forward "^ [a-z]" nil t)
+              (goto-char (match-beginning 0))
+              (save-excursion
+                (re-search-backward "^[0-9]+:[0-9]+-[0-9]+:[0-9]+ " nil t))
+              (insert (match-string 0)))))
 
 (setq org-directory "~/Desktop/PhilosophyNotes/Notes")
-(setq org-agenda-files '("~/Desktop/PhilosophyNotes/Notes/Agenda.org"))
+(setq org-agenda-files '("~/Desktop/PhilosophyNotes/Notes/Agenda.org"
+			 "~Desktop/PhilosophyNotes/Notes/philosophy.org"))
+
 
 (setq org-capture-templates
-      `(("i" "Inbox" entry (file "Agenda.org")
-	 ,(concat "* TODO %?\n"
-		  "/Entered on/ %U"))))
-(setq org-agenda-hide-tags-regexp ".")
+      `(("i" "Inbox" entry  (file "Agenda.org")
+        ,(concat "* TODO %?\n"
+                 "/Entered on/ %U"))
+        ("p" "Philosophy" entry (file "philosophy.org")
+        ,(concat "* TODO %?\n"
+                 "/Entered on/ %U"))
+       ("a" "PhD Applications" entry (file+headline "philosophy.org" "PhD Applications")
+        ,(concat "* TODO %? %^G\n"
+                 "/Entered on/ %U"))))
+
+;; (setq org-capture-templates
+;;       '(("i" "Inbox" entry (file "Agenda.org")
+;;          "* TODO %?\n")
+;;         ("p" "Philosophy" entry (file "philosophy.org")
+;;         "* TODO %?\n")))
+
 
 ;;org latex fragments size up
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 (defun programming-changes()
   (display-line-numbers-mode)
-  ;;(global-tree-sitter-mode)
-  (global-hl-line-mode))
+  (hl-line-mode))
 
 ;; Enable Line Numbers in Programming modes
 (add-hook 'prog-mode-hook 'programming-changes)
@@ -311,11 +349,24 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("9013233028d9798f901e5e8efb31841c24c12444d3b6e92580080505d56fd392" default))
- '(org-agenda-files '("~/Desktop/PhilosophyNotes/Notes/Agenda.org"))
+   '("b30351bb744aa2cba9281cdbffe4f05d0a5153442e3b2f866e9d3efcad364238"
+     "242b268ffb078e4617d787cb43bffddb5ad3ca568c29188feb130f2081fe1ff2"
+     "3c192a9f0bb81ab107504518f7c88ce54ea6ca7af8d5fd031b05956f3403ed29"
+     "5cde6fd287788d02948fe6222ceea41abe85f12b4014d17a102f0754f1466f40"
+     "413cb743f6fcb29c1a498b7d46ec3b7ea4a1f4430780e0f63d8d48cfc4a77b57"
+     "7986c9f254a8fc675fa18b27b70fa0b0f30011c02c47ba9e4eb1e614087a8784"
+     "02e54e1d188bea1c9b2f6a14db3c4b37215a614c2f41c7c34859b44cc0844a1e"
+     "15563b7bc433d7799d6fddf98f8468f178805468b4ed48f680b3a15dcf3c5e61"
+     default))
+ '(org-agenda-files
+   '("~/Desktop/PhilosophyNotes/Notes/philosophy.org"
+     "/Users/markarakelian/Desktop/PhilosophyNotes/Notes/Agenda.org"))
  '(org-agenda-loop-over-headlines-in-active-region nil)
  '(package-selected-packages
-   '(eglot all-the-icons-nerd-fonts ayu-theme ef-themes yasnippet vertico projectile org-bullets orderless nord-theme markdown-mode marginalia iceberg-theme highlight-indent-guides flycheck engrave-faces doom-themes doom-modeline deft company citar catppuccin-theme auctex)))
+   '(auctex autothemer citar company deft doom-modeline doom-themes
+	    ef-themes eglot engrave-faces git-gutter lab-themes magit
+	    marginalia nano-theme neotree orderless org-bullets
+	    python-black rustic vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -328,7 +379,7 @@
 (require 'ocp-indent)
 
 ;; Theme
-(load-theme 'nano-dark t)
+(load-theme 'ocean-charge)
 
 ;;Uncomment for transparent Emacs Gui
 ;;(dolist (frame (frame-list))
