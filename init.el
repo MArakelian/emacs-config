@@ -37,9 +37,6 @@
              '("melpa" . "https://melpa.org/packages/") t)
 
 ;; THEMES
-(use-package nano-theme
-  :ensure t)
-
 (use-package autothemer
   :ensure t)
 
@@ -316,6 +313,9 @@
 (setq-default python-basic-offset 4)
 (setq-default c-basic-offset 4)
 
+;; Google style guide requires offset 2
+(setq-default cpp-basic-offset 2)
+
 ;; Custom Keybindings ;;
 (keymap-global-set "C-c e" 'org-latex-export-to-pdf)
 (keymap-global-set "C-c a" 'org-agenda)
@@ -349,7 +349,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("b30351bb744aa2cba9281cdbffe4f05d0a5153442e3b2f866e9d3efcad364238"
+   '("7ec8fd456c0c117c99e3a3b16aaf09ed3fb91879f6601b1ea0eeaee9c6def5d9"
+     "ffa78fc746f85d1c88a2d1691b1e37d21832e9a44a0eeee114a00816eabcdaf9"
+     "4ade6b630ba8cbab10703b27fd05bb43aaf8a3e5ba8c2dc1ea4a2de5f8d45882"
+     "34cf3305b35e3a8132a0b1bdf2c67623bc2cb05b125f8d7d26bd51fd16d547ec"
+     "b30351bb744aa2cba9281cdbffe4f05d0a5153442e3b2f866e9d3efcad364238"
      "242b268ffb078e4617d787cb43bffddb5ad3ca568c29188feb130f2081fe1ff2"
      "3c192a9f0bb81ab107504518f7c88ce54ea6ca7af8d5fd031b05956f3403ed29"
      "5cde6fd287788d02948fe6222ceea41abe85f12b4014d17a102f0754f1466f40"
@@ -365,8 +369,8 @@
  '(package-selected-packages
    '(auctex autothemer citar company deft doom-modeline doom-themes
 	    ef-themes eglot engrave-faces git-gutter lab-themes magit
-	    marginalia nano-theme neotree orderless org-bullets
-	    python-black rustic vertico)))
+	    marginalia neotree orderless org-bullets python-black
+	    rustic vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -379,7 +383,9 @@
 (require 'ocp-indent)
 
 ;; Theme
-(load-theme 'ocean-charge)
+;;(load-theme 'doom-nord)
+(load-theme 'doom-city-lights)
+
 
 ;;Uncomment for transparent Emacs Gui
 ;;(dolist (frame (frame-list))
