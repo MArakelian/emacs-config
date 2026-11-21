@@ -1,12 +1,14 @@
 ;; -*- lexical-binding: t; -*-
 
 ;;Basic Customizations
+
 (setq-default
  inhibit-startup-screen t               ; Disable start-up screen
  inhibit-startup-message t              ; Disable startup message
  inhibit-startup-echo-area-message t    ; Disable initial echo message
  initial-scratch-message ""             ; Empty the initial *scratch* buffer
  initial-buffer-choice t)               ; Open *scratch* buffer at init
+
 
 (set-default-coding-systems 'utf-8)     ; Default to utf-8 encoding
 (prefer-coding-system       'utf-8)     ; Add utf-8 at the front for automatic detection.
@@ -21,6 +23,7 @@
 
 
 (setq-default cursor-in-non-selected-windows nil ; Hide the cursor in inactive windows
+              ;;cursor-type '(hbar . 2)            ; Underline-shaped cursor
               cursor-intangible-mode t           ; Enforce cursor intangibility
               x-stretch-cursor nil)              ; Don't stretch cursor to the glyph width
 
@@ -42,6 +45,15 @@
 ;;(setq mac-command-modifier 'meta) ; Set modifier for MACOS
 (setq select-enable-primary nil)
 (setq select-enable-clipboard t)
+
+
+(setq mac-command-modifier 'meta) ; Set modifier for MACOS
+(setq select-enable-primary nil)
+(setq select-enable-clipboard t)
+
+(setq-default scroll-conservatively 101       ; Avoid recentering when scrolling far
+              scroll-margin 2                 ; Add a margin when scrolling vertically
+              recenter-positions '(5 bottom)) ; Set re-centering positions
 
 
 (setq-default fill-column 80                          ; Default line width 
@@ -66,6 +78,9 @@
 
 ;; THEMES
 (use-package autothemer
+  :ensure t)
+
+(use-package base16-theme
   :ensure t)
 
 ;;ef-themes
@@ -168,7 +183,7 @@
   :bind
   (:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
 
-(setq citar-library-paths '("~/Documents"))
+(setq citar-library-paths '("~/Documents/Philosophy"))
 
 (use-package citeproc
   :ensure t)
@@ -193,7 +208,6 @@
 (use-package org-bullets
   :ensure t)
 
-
 ;; Notes System -----------------------------------> 
 (use-package deft
   :ensure t
@@ -204,8 +218,6 @@
 (setq deft-use-filename-as-title t)
 (setq deft-directory "~/Documents/Philosophy")
 (setq deft-default-extension "org")
-
-
 
 ;; Rust
 ;; Rust mode
@@ -286,6 +298,7 @@
   (display-line-numbers-mode -1)
   (setq org-agenda-include-diary t)
   (setq org-agenda-hide-tags-regexp "."))
+
 
 (setq org-agenda-custom-commands
       '(("p" "List Every Task"
@@ -408,40 +421,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("2b0531a540f4b51e524f551ed7374099f9d743b4de458ade0c52ba18ee6bfe46"
-     "49361d39cd77efa1e363fde9c80aa08e7a3ddaada86bccd90f3205af8733174a"
-     "c102cebd9d89fd6d1b8148112baffe9568fcf7253526b2a33d1035c9c4e506a0"
-     "cc8e6619a14298073d987046081c541b8b3854a6446497bdc254c3fad065cc30"
-     "bd17d0f6495c2626c493322ff37c64dc76ddb06c10dbadfead6a4f92775f00f3"
-     "7c0179ef765b9bf1d79612235236d29eebcaca9b4a287ff802959ed20db154b6"
-     "cc04ab23d95cc1e2c8912602285ece6c0b4b2e334024cc611599d2512ff89f22"
-     "daa27dcbe26a280a9425ee90dc7458d85bd540482b93e9fa94d4f43327128077"
-     "d2ab3d4f005a9ad4fb789a8f65606c72f30ce9d281a9e42da55f7f4b9ef5bfc6"
-     "998bc02f2e52205ad06df88a14d53168aef1ec1bbcc6fe2b0cd15fed8e5c8dae"
-     "acd363510d3e4b638db178783bde3d4492574c0f5c889f845251949f43567d16"
-     "8f787ed2d75bb7073796c00f7e1033d6e92f39314939446dd2d8e95cbc168422"
-     "f2f42f0b7c53736840fc3ff5751235e3b87cc535b04ddaf3423e2926548bfbb4"
-     "05f1ee9db2c66cd715ab6d36ff949386c47dfff91a7df1f203d015b3ea304dbb"
-     "4732feaaeab14f39b62cb922096749d0e9c5d561f6192e13dc2a3d8729d1fd4b"
-     "0dd83cb583518e6a20cd7881e4d2251c80c1141b50dc29fbe13198e62f3620f6"
-     "f76e34f676ac1fbce608c5f38033c35e370509619b9a3acd02a518ef58b01107"
-     "a38d7a034d1c4aafd9831437fa983ce3c95de8ed20f2523f5a5a27259680ff28"
-     "1fc299974daa270e19d1b206ec40aab3a0ce35e7c6a7d389b156bcd411e41a3c"
-     "b89b6d95670712b8742f4391416483a29d4315323a218600590160e132c70ec8"
-     "aa677c6e4d41fd0ceeb140fd11c6b9ea75912ec63c2f132a81f7cdc7f27e901e"
-     "63184b70451ce1eb3b6d09969a1f990f68e0ec1bfdd07f94ba453ac9096008ee"
-     "7a306767e3d3e8caea20860f60d0a82b3efe1dee0791dc08815d1c08ae4076be"
-     "d1d0bd3d8be9acb87bbdcd1ed3f8d2597403db3f53a9d79560e0213d20b8d780"
-     "a10be2cb039228828c243dd66ad4e76a1cac691d001ea4e6d7e3dfe6a55b0d17"
-     "c3da4bc9704db159e601c727fe9c33945147749205bb4536ad11fb883faa96f9"
-     "94ac10e5261b9a32c9f1a7ef88f3fb89bfcbad843436aaaedc97c7975d8e6ab2"
-     "664111db1521fe3351061dc87aea95fa98b3f244f4b830fbc048d39c3a8bc125"
+   '("15471462b38fe558caf976ae73e8ff528cb7245dcc9a529652859ec6cad98a97"
      "0672d7fbe7fa24344bbe98461a8db26cb52a074354f9a4529cea4ba1af456044" default))
  '(package-selected-packages
-   '(auctex autothemer base16-theme citar citeproc company deft ef-themes
-	    engrave-faces flycheck git-gutter imenu-list kanagawa-themes
-	    lsp-pyright magit marginalia orderless org-bullets projectile rustic
-	    treemacs vertico)))
+   '(auctex autothemer base16-theme citar citeproc company deft ef-themes eglot
+	    engrave-faces flycheck git-gutter iceberg-theme imenu-list
+	    kanagawa-themes lsp-pyright magit marginalia nano-theme orderless
+	    org-bullets projectile rustic treemacs vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -451,4 +437,5 @@
 
 ;; Theme
 (load-theme 'ef-maris-dark)
+(load-theme 'base16-vice)
 ;;(set-face-attribute 'font-lock-comment-face nil :foreground "#ECEFF4")
