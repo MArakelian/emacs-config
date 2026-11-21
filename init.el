@@ -421,7 +421,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("15471462b38fe558caf976ae73e8ff528cb7245dcc9a529652859ec6cad98a97"
+   '("333b0cc0f985744d97beebf433542bb93b314b331117aa57e91103dbec9c29fe"
+     "daa27dcbe26a280a9425ee90dc7458d85bd540482b93e9fa94d4f43327128077"
+     "2b0531a540f4b51e524f551ed7374099f9d743b4de458ade0c52ba18ee6bfe46"
+     "15471462b38fe558caf976ae73e8ff528cb7245dcc9a529652859ec6cad98a97"
      "0672d7fbe7fa24344bbe98461a8db26cb52a074354f9a4529cea4ba1af456044" default))
  '(package-selected-packages
    '(auctex autothemer base16-theme citar citeproc company deft ef-themes eglot
@@ -436,6 +439,4 @@
  )
 
 ;; Theme
-(load-theme 'ef-maris-dark)
-(load-theme 'base16-vice)
-;;(set-face-attribute 'font-lock-comment-face nil :foreground "#ECEFF4")
+(load-theme 'ef-deuteranopia-dark t)
