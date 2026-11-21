@@ -9,3 +9,7 @@ auto-save-list/
 elpa/
 eshell/
 transient/
+.cache/
+eln-cache/
+projectile-bookmarks.eld
+projects.eld
